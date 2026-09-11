@@ -21,6 +21,9 @@ while running:
     dt = clock.tick(60)/1000
     boid.update(dt)
     
+    angle = boid.velocity.angle_to(pygame.Vector2(1, 0))
+    print(angle)
+    
     triangle_points = [
         boid.position + pygame.Vector2(0, +25),
         boid.position + pygame.Vector2(+20, -25),
