@@ -1,5 +1,4 @@
 import pygame 
-import sys
 from boids import Boid
 
 
@@ -16,24 +15,26 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     
+    dt = clock.tick(60)/1000
+    
     screen.fill("white")
     
-    dt = clock.tick(60)/1000
     boid.update(dt)
     
     angle = boid.velocity.angle_to(pygame.Vector2(1, 0))
-    print(angle)
     
     triangle_points = [
-        boid.position + pygame.Vector2(0, +25),
-        boid.position + pygame.Vector2(+20, -25),
-        boid.position + pygame.Vector2(-20, -25)
+        boid.position + pygame.Vector2(0, -25).rotate(-angle),
+        boid.position + pygame.Vector2(-20, 25).rotate(-angle),
+        boid.position + pygame.Vector2(20, 25).rotate(-angle)
     ]
+    
+    pygame.Vector2(0, -25).rotate(angle)
     
     pygame.draw.polygon(screen, 'red', triangle_points, width=5)
         
     pygame.display.flip()
-        
+    
+    
+    
 pygame.quit()
-            
-sys.exit()
