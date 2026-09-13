@@ -1,6 +1,5 @@
 import pygame 
 import random
-
 from pygame import Vector2
 from boids import Boid
 
@@ -10,9 +9,8 @@ screen = pygame.display.set_mode((800, 800))
 running = True
 clock = pygame.time.Clock()
 
-ran_timer = random.uniform(0.5, 5)
 
-boid = Boid(400, 400, 200, 800, 800)
+boid = Boid(400, 400, 200, 800, 800, 10)
     
 
 while running:
@@ -24,6 +22,8 @@ while running:
     
     screen.fill("white")
     
+    boid.wander()
+    
     boid.update(dt)
     
     angle = boid.velocity.angle_to(pygame.Vector2(1, 0))
@@ -33,11 +33,7 @@ while running:
         boid.position + pygame.Vector2(-20, 25).rotate(-angle),
         boid.position + pygame.Vector2(20, 25).rotate(-angle)
     ]
-    
-    ran_timer -= dt
-    if ran_timer <= 0:
-        boid.acceleration += pygame.Vector2(random.randint(-1, 1), random.randint(-1, 1))
-        ran_timer = random.uniform(0.5, 5)
+
     
     pygame.Vector2(0, -25).rotate(angle)
     
